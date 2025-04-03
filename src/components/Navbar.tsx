@@ -10,6 +10,7 @@ import {
   Home,
   Sun
 } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 
 interface NavbarProps {
   onAddTask: () => void;
@@ -17,6 +18,7 @@ interface NavbarProps {
 
 const Navbar = ({ onAddTask }: NavbarProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
 
   return (
     <nav className="sticky top-0 z-10 bg-white/80 backdrop-blur-sm border-b border-garden-green/20 px-4 py-3">
@@ -28,13 +30,25 @@ const Navbar = ({ onAddTask }: NavbarProps) => {
         
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-4">
-          <Button variant="ghost" className="flex items-center gap-2">
-            <Home size={18} />
-            <span>Dashboard</span>
+          <Button 
+            variant="ghost" 
+            className="flex items-center gap-2"
+            asChild
+          >
+            <Link to="/">
+              <Home size={18} />
+              <span>Dashboard</span>
+            </Link>
           </Button>
-          <Button variant="ghost" className="flex items-center gap-2">
-            <Calendar size={18} />
-            <span>Calendar</span>
+          <Button 
+            variant="ghost" 
+            className={`flex items-center gap-2 ${location.pathname === '/calendar' ? 'bg-garden-green/10' : ''}`} 
+            asChild
+          >
+            <Link to="/calendar">
+              <Calendar size={18} />
+              <span>Calendar</span>
+            </Link>
           </Button>
           <Button variant="ghost" className="flex items-center gap-2">
             <Sprout size={18} />
@@ -77,13 +91,17 @@ const Navbar = ({ onAddTask }: NavbarProps) => {
       {isMenuOpen && (
         <div className="md:hidden container mx-auto mt-2 bg-white/95 shadow-md rounded-md overflow-hidden">
           <div className="flex flex-col">
-            <Button variant="ghost" className="justify-start py-3">
-              <Home size={18} className="mr-2" />
-              <span>Dashboard</span>
+            <Button variant="ghost" className="justify-start py-3" asChild>
+              <Link to="/">
+                <Home size={18} className="mr-2" />
+                <span>Dashboard</span>
+              </Link>
             </Button>
-            <Button variant="ghost" className="justify-start py-3">
-              <Calendar size={18} className="mr-2" />
-              <span>Calendar</span>
+            <Button variant="ghost" className="justify-start py-3" asChild>
+              <Link to="/calendar">
+                <Calendar size={18} className="mr-2" />
+                <span>Calendar</span>
+              </Link>
             </Button>
             <Button variant="ghost" className="justify-start py-3">
               <Sprout size={18} className="mr-2" />

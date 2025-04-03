@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { mockTasks, mockPlants, mockWeather } from '@/data/mockData';
 import { Plus, Calendar, ArrowRight } from 'lucide-react';
 import { toast } from 'sonner';
+import { Link } from 'react-router-dom';
 
 const Index = () => {
   const [tasks, setTasks] = useState<Task[]>(mockTasks);
@@ -153,8 +154,15 @@ const Index = () => {
             <div className="garden-card">
               <div className="flex justify-between items-center p-4 bg-garden-green/10 border-b border-garden-green/20">
                 <h2 className="font-semibold text-lg">Calendar</h2>
-                <Button variant="ghost" size="sm" className="text-garden-green">
-                  Full Calendar <Calendar size={16} className="ml-1" />
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="text-garden-green"
+                  asChild
+                >
+                  <Link to="/calendar">
+                    Full Calendar <Calendar size={16} className="ml-1" />
+                  </Link>
                 </Button>
               </div>
               
