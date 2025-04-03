@@ -7,7 +7,7 @@ import AddTaskForm from '@/components/AddTaskForm';
 import PlantCard from '@/components/PlantCard';
 import WeatherWidget from '@/components/WeatherWidget';
 import { Button } from '@/components/ui/button';
-import { mockTasks, mockPlants, mockWeather, getCurrentSeason } from '@/data/mockData';
+import { mockTasks, mockPlants, mockWeather } from '@/data/mockData';
 import { Plus, Calendar, ArrowRight } from 'lucide-react';
 import { toast } from 'sonner';
 

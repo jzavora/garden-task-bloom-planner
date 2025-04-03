@@ -195,14 +195,14 @@ const AddTaskForm = ({ onClose, onSave, editingTask }: AddTaskFormProps) => {
             <div className="space-y-2">
               <Label htmlFor="plantId">Related Plant (Optional)</Label>
               <Select 
-                value={task.plantId || ''} 
-                onValueChange={(value) => handleSelectChange('plantId', value)}
+                value={task.plantId || "none"} 
+                onValueChange={(value) => handleSelectChange('plantId', value === "none" ? "" : value)}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select plant" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">None</SelectItem>
+                  <SelectItem value="none">None</SelectItem>
                   {mockPlants.map(plant => (
                     <SelectItem key={plant.id} value={plant.id}>
                       {plant.name}
