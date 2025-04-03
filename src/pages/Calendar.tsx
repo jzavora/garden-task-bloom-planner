@@ -96,10 +96,10 @@ const CalendarPage = () => {
                   onMonthChange={setCurrentMonth}
                   className={cn("rounded-md border p-3 pointer-events-auto")}
                   components={{
-                    DayContent: (props) => (
+                    DayContent: ({ date }) => (
                       <div className="relative h-9 w-9 p-0 flex items-center justify-center">
-                        <span>{props.day.day}</span>
-                        {dayWithTasks(props.day.date)}
+                        <span>{date.getDate()}</span>
+                        {dayWithTasks(date)}
                       </div>
                     ),
                   }}
