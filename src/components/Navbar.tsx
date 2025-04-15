@@ -50,9 +50,15 @@ const Navbar = ({ onAddTask }: NavbarProps) => {
               <span>Calendar</span>
             </Link>
           </Button>
-          <Button variant="ghost" className="flex items-center gap-2">
-            <Sprout size={18} />
-            <span>Plants</span>
+          <Button 
+            variant="ghost" 
+            className={`flex items-center gap-2 ${location.pathname === '/plants' ? 'bg-garden-green/10' : ''}`}
+            asChild
+          >
+            <Link to="/plants">
+              <Sprout size={18} />
+              <span>Plants</span>
+            </Link>
           </Button>
           <Button variant="ghost" className="flex items-center gap-2">
             <Sun size={18} />
@@ -103,9 +109,11 @@ const Navbar = ({ onAddTask }: NavbarProps) => {
                 <span>Calendar</span>
               </Link>
             </Button>
-            <Button variant="ghost" className="justify-start py-3">
-              <Sprout size={18} className="mr-2" />
-              <span>Plants</span>
+            <Button variant="ghost" className="justify-start py-3" asChild>
+              <Link to="/plants">
+                <Sprout size={18} className="mr-2" />
+                <span>Plants</span>
+              </Link>
             </Button>
             <Button variant="ghost" className="justify-start py-3">
               <Sun size={18} className="mr-2" />
