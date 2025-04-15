@@ -60,9 +60,15 @@ const Navbar = ({ onAddTask }: NavbarProps) => {
               <span>Plants</span>
             </Link>
           </Button>
-          <Button variant="ghost" className="flex items-center gap-2">
-            <Sun size={18} />
-            <span>Weather</span>
+          <Button 
+            variant="ghost" 
+            className={`flex items-center gap-2 ${location.pathname === '/weather' ? 'bg-garden-green/10' : ''}`}
+            asChild
+          >
+            <Link to="/weather">
+              <Sun size={18} />
+              <span>Weather</span>
+            </Link>
           </Button>
           <Button 
             onClick={onAddTask} 
@@ -115,9 +121,11 @@ const Navbar = ({ onAddTask }: NavbarProps) => {
                 <span>Plants</span>
               </Link>
             </Button>
-            <Button variant="ghost" className="justify-start py-3">
-              <Sun size={18} className="mr-2" />
-              <span>Weather</span>
+            <Button variant="ghost" className="justify-start py-3" asChild>
+              <Link to="/weather">
+                <Sun size={18} className="mr-2" />
+                <span>Weather</span>
+              </Link>
             </Button>
           </div>
         </div>
