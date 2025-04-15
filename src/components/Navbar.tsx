@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { 
@@ -8,9 +7,11 @@ import {
   Plus, 
   Sprout,
   Home,
-  Sun
+  Sun,
+  LogOut
 } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '@/hooks/useAuth';
 
 interface NavbarProps {
   onAddTask: () => void;
@@ -19,6 +20,7 @@ interface NavbarProps {
 const Navbar = ({ onAddTask }: NavbarProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const { user, signOut } = useAuth();
 
   return (
     <nav className="sticky top-0 z-10 bg-white/80 backdrop-blur-sm border-b border-garden-green/20 px-4 py-3">
@@ -30,64 +32,79 @@ const Navbar = ({ onAddTask }: NavbarProps) => {
         
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-4">
-          <Button 
-            variant="ghost" 
-            className="flex items-center gap-2"
-            asChild
-          >
-            <Link to="/">
-              <Home size={18} />
-              <span>Dashboard</span>
-            </Link>
-          </Button>
-          <Button 
-            variant="ghost" 
-            className={`flex items-center gap-2 ${location.pathname === '/calendar' ? 'bg-garden-green/10' : ''}`} 
-            asChild
-          >
-            <Link to="/calendar">
-              <Calendar size={18} />
-              <span>Calendar</span>
-            </Link>
-          </Button>
-          <Button 
-            variant="ghost" 
-            className={`flex items-center gap-2 ${location.pathname === '/plants' ? 'bg-garden-green/10' : ''}`}
-            asChild
-          >
-            <Link to="/plants">
-              <Sprout size={18} />
-              <span>Plants</span>
-            </Link>
-          </Button>
-          <Button 
-            variant="ghost" 
-            className={`flex items-center gap-2 ${location.pathname === '/weather' ? 'bg-garden-green/10' : ''}`}
-            asChild
-          >
-            <Link to="/weather">
-              <Sun size={18} />
-              <span>Weather</span>
-            </Link>
-          </Button>
-          <Button 
-            onClick={onAddTask} 
-            className="bg-garden-green hover:bg-garden-green-dark text-white"
-          >
-            <Plus size={18} className="mr-1" />
-            Add Task
-          </Button>
+          {user ? (
+            <>
+              <Button 
+                variant="ghost" 
+                className="flex items-center gap-2"
+                asChild
+              >
+                <Link to="/">
+                  <Home size={18} />
+                  <span>Dashboard</span>
+                </Link>
+              </Button>
+              <Button 
+                variant="ghost" 
+                className={`flex items-center gap-2 ${location.pathname === '/calendar' ? 'bg-garden-green/10' : ''}`} 
+                asChild
+              >
+                <Link to="/calendar">
+                  <Calendar size={18} />
+                  <span>Calendar</span>
+                </Link>
+              </Button>
+              <Button 
+                variant="ghost" 
+                className={`flex items-center gap-2 ${location.pathname === '/plants' ? 'bg-garden-green/10' : ''}`}
+                asChild
+              >
+                <Link to="/plants">
+                  <Sprout size={18} />
+                  <span>Plants</span>
+                </Link>
+              </Button>
+              <Button 
+                variant="ghost" 
+                className={`flex items-center gap-2 ${location.pathname === '/weather' ? 'bg-garden-green/10' : ''}`}
+                asChild
+              >
+                <Link to="/weather">
+                  <Sun size={18} />
+                  <span>Weather</span>
+                </Link>
+              </Button>
+              <Button 
+                onClick={signOut} 
+                variant="ghost"
+                className="flex items-center gap-2"
+              >
+                <LogOut size={18} />
+                <span>Sign Out</span>
+              </Button>
+            </>
+          ) : (
+            <Button 
+              variant="ghost" 
+              className="flex items-center gap-2"
+              asChild
+            >
+              <Link to="/auth">Sign In</Link>
+            </Button>
+          )}
         </div>
         
         {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center">
-          <Button 
-            onClick={onAddTask} 
-            className="mr-2 bg-garden-green hover:bg-garden-green-dark text-white p-2"
-            size="icon"
-          >
-            <Plus size={20} />
-          </Button>
+          {user && (
+            <Button 
+              onClick={onAddTask} 
+              className="mr-2 bg-garden-green hover:bg-garden-green-dark text-white p-2"
+              size="icon"
+            >
+              <Plus size={20} />
+            </Button>
+          )}
           
           <Button 
             variant="ghost" 
@@ -127,6 +144,23 @@ const Navbar = ({ onAddTask }: NavbarProps) => {
                 <span>Weather</span>
               </Link>
             </Button>
+            {user ? (
+              <Button 
+                variant="ghost" 
+                className="justify-start py-3"
+                onClick={signOut}
+              >
+                <LogOut size={18} className="mr-2" />
+                <span>Sign Out</span>
+              </Button>
+            ) : (
+              <Button variant="ghost" className="justify-start py-3" asChild>
+                <Link to="/auth">
+                  <LogOut size={18} className="mr-2" />
+                  <span>Sign In</span>
+                </Link>
+              </Button>
+            )}
           </div>
         </div>
       )}
